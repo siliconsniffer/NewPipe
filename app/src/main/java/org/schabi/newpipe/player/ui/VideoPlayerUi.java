@@ -1466,6 +1466,7 @@ public abstract class VideoPlayerUi extends PlayerUi implements SeekBar.OnSeekBa
     }
 
     public boolean onKeyDown(final int keyCode) {
+        final int currentVol = player.getAudioReactor().getVolume();
         switch (keyCode) {
             case KeyEvent.KEYCODE_BACK:
                 if (DeviceUtils.isTv(context) && isControlsVisible()) {
@@ -1474,10 +1475,21 @@ public abstract class VideoPlayerUi extends PlayerUi implements SeekBar.OnSeekBa
                 }
                 break;
             case KeyEvent.KEYCODE_DPAD_UP:
+                // Increase volume by 1 step
+                final int max = player.getAudioReactor().getMaxVolume();
+                if (currentVol < max) {
+                    player.getAudioReactor().setVolume(currentVol + 1);
+                }
+                return true;
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 player.fastRewind();
                 return true;
             case KeyEvent.KEYCODE_DPAD_DOWN:
+                // Decrease volume by 1 step
+                if (currentVol > 0) {
+                    player.getAudioReactor().setVolume(currentVol - 1);
+                }
+                return true;
             case KeyEvent.KEYCODE_DPAD_RIGHT:
                 player.fastForward();
                 return true;
