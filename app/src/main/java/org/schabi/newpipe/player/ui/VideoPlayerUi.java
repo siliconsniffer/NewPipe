@@ -1475,8 +1475,12 @@ public abstract class VideoPlayerUi extends PlayerUi implements SeekBar.OnSeekBa
                 break;
             case KeyEvent.KEYCODE_DPAD_UP:
             case KeyEvent.KEYCODE_DPAD_LEFT:
+                player.fastRewind();
+                return true;
             case KeyEvent.KEYCODE_DPAD_DOWN:
             case KeyEvent.KEYCODE_DPAD_RIGHT:
+                player.fastForward();
+                return true;
             case KeyEvent.KEYCODE_DPAD_CENTER:
                 if ((binding.getRoot().hasFocus() && !binding.playbackControlRoot.hasFocus())
                         || isAnyListViewOpen()) {
